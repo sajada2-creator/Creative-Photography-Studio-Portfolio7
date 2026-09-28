@@ -37,35 +37,35 @@
 }
 
 :root {
-  --background: 37 35% 85%;
+  --background: 40 100% 98%;
   --foreground: 202 81% 20%;
   --border: 37 26% 73%;
-  --card: 37 35% 85%;
+  --card: 40 100% 98%;
   --card-foreground: 202 81% 20%;
   --card-border: 37 26% 73%;
   --popover: 202 81% 20%;
-  --popover-foreground: 37 35% 85%;
+  --popover-foreground: 40 100% 98%;
   --popover-border: 202 76% 29%;
   --primary: 202 81% 20%;
-  --primary-foreground: 37 35% 85%;
-  --secondary: 37 35% 85%;
+  --primary-foreground: 40 100% 98%;
+  --secondary: 37 53% 81%;
   --secondary-foreground: 202 81% 20%;
-  --muted: 37 26% 73%;
+  --muted: 37 53% 81%;
   --muted-foreground: 202 42% 37%;
-  --accent: 37 35% 85%;
+  --accent: 37 53% 81%;
   --accent-foreground: 202 81% 20%;
-  --destructive: 4 55% 40%;
-  --destructive-foreground: 37 35% 85%;
+  --destructive: 202 81% 20%;
+  --destructive-foreground: 40 100% 98%;
   --input: 37 26% 73%;
   --ring: 202 81% 20%;
   --sidebar: 202 81% 20%;
-  --sidebar-foreground: 37 35% 85%;
+  --sidebar-foreground: 40 100% 98%;
   --sidebar-border: 202 76% 29%;
-  --sidebar-primary: 37 35% 85%;
+  --sidebar-primary: 37 53% 81%;
   --sidebar-primary-foreground: 202 81% 20%;
   --sidebar-accent: 202 76% 29%;
-  --sidebar-accent-foreground: 37 35% 85%;
-  --sidebar-ring: 37 35% 85%;
+  --sidebar-accent-foreground: 40 100% 98%;
+  --sidebar-ring: 37 53% 81%;
   --app-font-sans: 'IBM Plex Sans Arabic', sans-serif;
   --app-font-serif: 'Noto Kufi Arabic', sans-serif;
   --app-font-mono: 'IBM Plex Sans Arabic', sans-serif;
@@ -75,32 +75,32 @@
 
 .dark {
   --background: 202 81% 20%;
-  --foreground: 37 35% 85%;
+  --foreground: 37 53% 81%;
   --border: 202 55% 30%;
   --card: 202 76% 23%;
-  --card-foreground: 37 35% 85%;
+  --card-foreground: 37 53% 81%;
   --card-border: 202 55% 30%;
   --popover: 37 35% 85%;
   --popover-foreground: 202 81% 20%;
   --popover-border: 37 26% 73%;
-  --primary: 37 35% 85%;
+  --primary: 37 53% 81%;
   --primary-foreground: 202 81% 20%;
   --secondary: 202 76% 29%;
-  --secondary-foreground: 37 35% 85%;
+  --secondary-foreground: 37 53% 81%;
   --muted: 202 55% 30%;
   --muted-foreground: 37 28% 70%;
-  --accent: 37 35% 85%;
+  --accent: 37 53% 81%;
   --accent-foreground: 202 81% 20%;
   --input: 202 55% 30%;
   --ring: 37 35% 85%;
   --sidebar: 202 81% 20%;
-  --sidebar-foreground: 37 35% 85%;
+  --sidebar-foreground: 37 53% 81%;
   --sidebar-border: 202 55% 30%;
-  --sidebar-primary: 37 35% 85%;
+  --sidebar-primary: 37 53% 81%;
   --sidebar-primary-foreground: 202 81% 20%;
   --sidebar-accent: 202 76% 29%;
-  --sidebar-accent-foreground: 37 35% 85%;
-  --sidebar-ring: 37 35% 85%;
+  --sidebar-accent-foreground: 37 53% 81%;
+  --sidebar-ring: 37 53% 81%;
 }
 
 @layer base {
@@ -167,6 +167,7 @@
 .lightbox-backdrop { background: hsl(202 81% 12% / .96); backdrop-filter: blur(18px); }
 .lightbox-enter { animation: riseIn .35s ease-out both; }
 .no-scroll { overflow: hidden; }
+.about-tab-label { writing-mode: vertical-rl; transform: rotate(180deg); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }

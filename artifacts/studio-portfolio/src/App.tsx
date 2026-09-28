@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
-  ChevronDown,
   ExternalLink,
   Instagram,
   Menu,
@@ -159,15 +158,14 @@ function VisualFrame({ item, index, onOpen }: { item: WorkItem; index: number; o
   );
 }
 
-function CategoryVisual({ category, active, onClick }: { category: Category; active: boolean; onClick: () => void }) {
+function CategoryVisual({ category, onClick }: { category: Category; onClick: () => void }) {
   const firstTone = category.works[0]?.tone ?? `empty-${category.slug}`;
   return (
     <button
       type="button"
       onClick={onClick}
       data-testid={`button-category-${category.slug}`}
-      aria-pressed={active}
-      className={`category-card group flex min-w-[220px] snap-start flex-col text-right md:min-w-0 ${active ? 'text-primary' : 'text-primary/65'}`}
+      className="category-card group flex min-w-[220px] snap-start flex-col text-right text-primary/65 md:min-w-0"
     >
       <div className={`category-visual visual-surface relative mb-5 aspect-[4/3] w-full border border-primary/15 ${firstTone}`}>
         <span className="absolute right-5 top-5 z-10 font-mono text-[10px] tracking-[.2em] text-accent/80">0{CATEGORIES.indexOf(category) + 1}</span>
@@ -181,7 +179,7 @@ function CategoryVisual({ category, active, onClick }: { category: Category; act
       </div>
       <span className="display-font text-xl">{category.name}</span>
       <span className="mt-1 text-[11px] tracking-[.12em] opacity-70" dir="ltr">{category.latin}</span>
-      <span className={`mt-3 h-px bg-primary transition-all duration-500 ${active ? 'w-12' : 'w-5 group-hover:w-12'}`} />
+      <span className="mt-3 h-px w-5 bg-primary transition-all duration-500 group-hover:w-12" />
     </button>
   );
 }
@@ -197,6 +195,43 @@ function ComingSoon({ category }: { category: Category }) {
       <span className="eyebrow text-primary/55">قيد التحضير</span>
       <h3 className="display-font mt-4 text-2xl">شيء جميل يقترب</h3>
       <p className="mt-3 max-w-sm text-sm leading-8 text-primary/65">نرتب هذه المساحة لـ {category.name}. ستظهر هنا أعمالها حين يحين وقتها.</p>
+    </div>
+  );
+}
+
+function PortfolioOverlay({ category, onClose, onOpen }: { category: Category; onClose: () => void; onOpen: (index: number) => void }) {
+  return (
+    <div className="portfolio-overlay fixed inset-0 z-[80] overflow-y-auto bg-background" role="dialog" aria-modal="true" aria-label={`أعمال ${category.name}`}>
+      <div className="sticky top-0 z-10 border-b border-primary/15 bg-background/90 backdrop-blur-xl">
+        <div className="mx-auto flex h-[76px] max-w-[1400px] items-center justify-between px-5 md:h-[88px] md:px-10">
+          <button type="button" onClick={onClose} data-testid="button-back-to-categories" className="group flex items-center gap-3 text-sm text-primary transition-colors hover:text-primary/65">
+            <span className="flex h-9 w-9 items-center justify-center border border-primary/35 transition-transform duration-300 group-hover:-translate-x-1"><ArrowRight size={16} strokeWidth={1.3} /></span>
+            رجوع للتصنيفات
+          </button>
+          <span className="eyebrow text-primary/45" dir="ltr">ATHAR / PORTFOLIO</span>
+          <button type="button" onClick={onClose} data-testid="button-close-portfolio" aria-label="إغلاق معرض الأعمال" className="flex h-10 w-10 items-center justify-center border border-primary/25 text-primary transition-colors hover:bg-primary hover:text-accent">
+            <X size={18} strokeWidth={1.3} />
+          </button>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24">
+        <div className="mb-14 max-w-3xl">
+          <span className="eyebrow text-primary/50" dir="ltr">{category.latin}</span>
+          <h2 className="display-font mt-5 text-5xl leading-[1.35] md:text-8xl">{category.name}</h2>
+          <p className="mt-6 max-w-md text-sm leading-8 text-primary/65">{category.description}</p>
+        </div>
+
+        {category.works.length > 0 ? (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+            {category.works.map((item, index) => (
+              <VisualFrame key={item.id} item={item} index={index} onOpen={() => onOpen(index)} />
+            ))}
+          </div>
+        ) : (
+          <ComingSoon category={category} />
+        )}
+      </div>
     </div>
   );
 }
@@ -247,13 +282,14 @@ function Lightbox({ items, activeIndex, onClose, onChange }: { items: WorkItem[]
 }
 
 function Home() {
-  const [selectedSlug, setSelectedSlug] = useState('weddings');
+  const [portfolioSlug, setPortfolioSlug] = useState<string | null>(null);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const workRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
-  const selectedCategory = useMemo(() => CATEGORIES.find((category) => category.slug === selectedSlug) ?? CATEGORIES[0], [selectedSlug]);
+  const aboutPanelRef = useRef<HTMLDivElement>(null);
+  const portfolioCategory = useMemo(() => CATEGORIES.find((category) => category.slug === portfolioSlug) ?? null, [portfolioSlug]);
 
   useEffect(() => {
     document.documentElement.lang = 'ar';
@@ -270,9 +306,20 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    document.body.classList.toggle('no-scroll', lightboxIndex !== null || mobileOpen);
+    document.body.classList.toggle('no-scroll', lightboxIndex !== null || mobileOpen || portfolioSlug !== null);
     return () => document.body.classList.remove('no-scroll');
-  }, [lightboxIndex, mobileOpen]);
+  }, [lightboxIndex, mobileOpen, portfolioSlug]);
+
+  useEffect(() => {
+    if (!aboutOpen) return;
+    const handleOutsidePointer = (event: PointerEvent) => {
+      if (aboutPanelRef.current && !aboutPanelRef.current.contains(event.target as Node)) {
+        setAboutOpen(false);
+      }
+    };
+    document.addEventListener('pointerdown', handleOutsidePointer);
+    return () => document.removeEventListener('pointerdown', handleOutsidePointer);
+  }, [aboutOpen]);
 
   const scrollTo = (element: HTMLElement | null) => {
     element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -296,9 +343,6 @@ function Home() {
             <span className="hidden text-xs tracking-[.18em] text-primary/70 sm:inline" dir="ltr">ATHAR / VISUALS</span>
           </button>
           <nav className="hidden items-center gap-8 md:flex" aria-label="التنقل الرئيسي">
-            <button type="button" onClick={() => setAboutOpen((open) => !open)} data-testid="button-toggle-about" className="group flex items-center gap-2 text-sm text-primary/75 transition-colors hover:text-primary">
-              عن أثر <ChevronDown size={14} className={`transition-transform duration-300 ${aboutOpen ? 'rotate-180' : ''}`} />
-            </button>
             <button type="button" onClick={() => scrollTo(workRef.current)} data-testid="button-nav-work" className="text-sm text-primary/75 transition-colors hover:text-primary">الأعمال</button>
             <button type="button" onClick={() => scrollTo(contactRef.current)} data-testid="button-nav-contact" className="flex items-center gap-2 text-sm text-primary/75 transition-colors hover:text-primary">لنتحدث <ArrowLeft size={15} /></button>
           </nav>
@@ -306,15 +350,23 @@ function Home() {
             <Menu size={19} strokeWidth={1.3} />
           </button>
         </div>
-        <div className={`overflow-hidden border-t border-primary/10 bg-background/90 transition-[max-height,opacity] duration-500 ${aboutOpen ? 'max-h-44 opacity-100' : 'max-h-0 opacity-0'}`}>
-          <div className="mx-auto max-w-[1400px] px-5 py-6 md:px-10">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <p className="max-w-2xl text-sm leading-8 text-primary/70">أثر جماعة صغيرة تعمل من قلب التفاصيل. نصنع صوراً تشبه أصحابها، ونترك للمشهد مساحة كي يتنفس. من المناسبة إلى الفكرة، نقترب بلا ضجيج.</p>
-              <span className="eyebrow text-primary/45">منذ ٢٠٢٤ / القاهرة</span>
-            </div>
-          </div>
-        </div>
       </header>
+
+      <div ref={aboutPanelRef} className="fixed right-0 top-1/2 z-50 -translate-y-1/2">
+        <button type="button" onClick={() => setAboutOpen((open) => !open)} data-testid="button-floating-about" aria-expanded={aboutOpen} className="about-tab group flex h-40 w-11 items-center justify-center border border-primary/30 bg-background/90 text-primary shadow-[0_16px_40px_hsl(202_81%_20%/.12)] backdrop-blur-md transition-all duration-300 hover:w-14 md:h-48 md:w-12">
+          <span className="about-tab-label text-xs tracking-[.15em]">نبذة عن المجموعة</span>
+        </button>
+        <div className={`absolute right-14 top-1/2 w-[min(21rem,calc(100vw-5.5rem))] -translate-y-1/2 origin-right border border-primary/25 bg-background/90 p-6 text-right shadow-[0_20px_60px_hsl(202_81%_20%/.18)] backdrop-blur-xl transition-all duration-300 md:right-16 md:p-8 ${aboutOpen ? 'pointer-events-auto scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'}`} aria-hidden={!aboutOpen}>
+          <div className="mb-6 flex items-center justify-between gap-4 border-b border-primary/15 pb-4">
+            <span className="eyebrow text-primary/45">منذ ٢٠٢٤ / القاهرة</span>
+            <button type="button" onClick={() => setAboutOpen(false)} data-testid="button-close-floating-about" aria-label="إغلاق النبذة" className="flex h-8 w-8 items-center justify-center border border-primary/20 text-primary transition-colors hover:bg-primary hover:text-accent">
+              <X size={15} strokeWidth={1.3} />
+            </button>
+          </div>
+          <h2 className="display-font text-2xl text-primary">نبذة عن المجموعة</h2>
+          <p className="mt-5 text-sm leading-8 text-primary/70">أثر جماعة صغيرة تعمل من قلب التفاصيل. نصنع صوراً تشبه أصحابها، ونترك للمشهد مساحة كي يتنفس. من المناسبة إلى الفكرة، نقترب بلا ضجيج.</p>
+        </div>
+      </div>
 
       <section className="hero-grid relative flex min-h-[760px] items-end overflow-hidden px-5 pb-16 pt-36 md:min-h-[900px] md:px-10 md:pb-24">
         <div className="hero-orb pointer-events-none absolute -left-32 top-32 h-[420px] w-[420px] rounded-full border border-primary/10 md:h-[640px] md:w-[640px]" />
@@ -355,22 +407,7 @@ function Home() {
         </div>
 
         <div className="-mx-5 mb-20 flex snap-x gap-5 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-7 md:gap-5 md:overflow-visible md:px-0">
-          {CATEGORIES.map((category) => <CategoryVisual key={category.slug} category={category} active={category.slug === selectedSlug} onClick={() => setSelectedSlug(category.slug)} />)}
-        </div>
-
-        <div className="border-t border-primary/15 pt-10">
-          <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <span className="text-xs tracking-[.16em] text-primary/45" dir="ltr">{selectedCategory.latin.toUpperCase()}</span>
-              <h3 data-testid={`text-selected-category-${selectedCategory.slug}`} className="display-font mt-2 text-3xl">{selectedCategory.name}</h3>
-            </div>
-            <p className="max-w-xs text-sm leading-7 text-primary/60">{selectedCategory.description}</p>
-          </div>
-          {selectedCategory.works.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
-              {selectedCategory.works.map((item, index) => <VisualFrame key={item.id} item={item} index={index} onOpen={() => setLightboxIndex(index)} />)}
-            </div>
-          ) : <ComingSoon category={selectedCategory} />}
+          {CATEGORIES.map((category) => <CategoryVisual key={category.slug} category={category} onClick={() => setPortfolioSlug(category.slug)} />)}
         </div>
       </section>
 
@@ -384,7 +421,6 @@ function Home() {
           </div>
           <div className="border-r border-accent/25 pr-6 md:pr-8">
             <p className="text-sm leading-9 text-accent/70">لا نطارد الصورة المثالية. ننتظر اللحظة التي تصبح فيها الصورة صادقة. نعمل مع الضوء، المكان، والأشخاص أمامنا — لا ضدهم.</p>
-            <button type="button" onClick={() => setAboutOpen(true)} data-testid="button-read-about" className="mt-8 flex items-center gap-3 border-b border-accent/40 pb-3 text-sm text-accent transition-colors hover:border-accent">اقرأ عنّا <ArrowLeft size={15} strokeWidth={1.2} /></button>
           </div>
         </div>
       </section>
@@ -418,7 +454,7 @@ function Home() {
         </div>
       </section>
 
-      <a href={CONTACT_LINKS.whatsapp} data-testid="link-floating-whatsapp" aria-label="التواصل عبر واتساب" className="fixed bottom-5 left-5 z-30 flex items-center gap-3 border border-primary/30 bg-background/90 px-4 py-3 text-xs text-primary shadow-[0_12px_30px_hsl(202_81%_20%/.12)] backdrop-blur-md transition-transform hover:-translate-y-1 md:bottom-8 md:left-8">
+      <a href={CONTACT_LINKS.whatsapp} data-testid="link-floating-whatsapp" aria-label="التواصل عبر واتساب" className="fixed bottom-5 right-5 z-30 flex items-center gap-3 border border-primary/30 bg-background/90 px-4 py-3 text-xs text-primary shadow-[0_12px_30px_hsl(202_81%_20%/.12)] backdrop-blur-md transition-transform hover:-translate-y-1 md:bottom-8 md:right-8">
         <span className="h-2 w-2 rounded-full bg-primary" /> ابدأ محادثة
       </a>
 
@@ -430,7 +466,6 @@ function Home() {
               <button type="button" onClick={() => setMobileOpen(false)} data-testid="button-close-mobile-menu" aria-label="إغلاق القائمة" className="flex h-10 w-10 items-center justify-center border border-primary/25"><X size={18} strokeWidth={1.3} /></button>
             </div>
             <nav className="flex flex-col" aria-label="قائمة الهاتف">
-              <button type="button" onClick={() => { setAboutOpen(true); setMobileOpen(false); }} data-testid="button-mobile-about" className="border-b border-primary/15 py-5 text-right text-2xl">عن أثر</button>
               <button type="button" onClick={() => scrollTo(workRef.current)} data-testid="button-mobile-work" className="border-b border-primary/15 py-5 text-right text-2xl">الأعمال</button>
               <button type="button" onClick={() => scrollTo(contactRef.current)} data-testid="button-mobile-contact" className="flex items-center justify-between py-5 text-right text-2xl">لنتحدث <ArrowLeft size={22} strokeWidth={1.2} /></button>
             </nav>
@@ -439,8 +474,12 @@ function Home() {
         </div>
       )}
 
-      {lightboxIndex !== null && selectedCategory.works.length > 0 && (
-        <Lightbox items={selectedCategory.works} activeIndex={lightboxIndex} onClose={() => setLightboxIndex(null)} onChange={setLightboxIndex} />
+      {portfolioCategory && (
+        <PortfolioOverlay category={portfolioCategory} onClose={() => { setPortfolioSlug(null); setLightboxIndex(null); }} onOpen={setLightboxIndex} />
+      )}
+
+      {lightboxIndex !== null && portfolioCategory && portfolioCategory.works.length > 0 && (
+        <Lightbox items={portfolioCategory.works} activeIndex={lightboxIndex} onClose={() => setLightboxIndex(null)} onChange={setLightboxIndex} />
       )}
     </main>
   );
