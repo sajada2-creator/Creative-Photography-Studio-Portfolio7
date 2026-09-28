@@ -328,19 +328,23 @@ function Home() {
 
   return (
     <main className="studio-shell min-h-[100dvh]">
-      <div className="intro-curtain fixed inset-0 z-[120] flex items-center justify-center bg-primary text-accent" aria-label="مقدمة الشعار">
+      <div className="intro-curtain fixed inset-0 z-[120] flex items-center justify-center bg-primary text-accent" aria-label="مقدمة شعار RX-MOMENT">
         <div className="text-center">
-          <div className="display-font text-3xl tracking-wide md:text-5xl">[GROUP LOGO]</div>
+          <img
+            src="/rx-moment-logo.png"
+            alt="RX-MOMENT"
+            className="mx-auto w-[min(19rem,76vw)] object-contain brightness-125 md:w-[25rem]"
+          />
           <div className="mx-auto mt-5 h-px w-16 bg-accent/55" />
-          <p className="mt-4 text-[10px] tracking-[.35em] text-accent/60">صورة • أثر • حكاية</p>
+          <p className="mt-4 text-[10px] tracking-[.35em] text-accent/70" dir="ltr">RX-MOMENT</p>
         </div>
       </div>
 
       <header className="glass-nav fixed inset-x-0 top-0 z-40 border-b border-primary/10">
         <div className="mx-auto flex h-[76px] max-w-[1400px] items-center justify-between px-5 md:h-[88px] md:px-10">
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} data-testid="button-brand-home" className="group flex items-center gap-3 text-right">
-            <span className="flex h-9 w-9 items-center justify-center border border-primary/60 text-[9px] font-semibold tracking-tighter">أثر</span>
-            <span className="hidden text-xs tracking-[.18em] text-primary/70 sm:inline" dir="ltr">ATHAR / VISUALS</span>
+            <img src="/rx-moment-logo.png" alt="RX-MOMENT" className="h-9 w-16 object-contain" />
+            <span className="hidden text-xs tracking-[.18em] text-primary/70 sm:inline" dir="ltr">RX-MOMENT / VISUALS</span>
           </button>
           <nav className="hidden items-center gap-8 md:flex" aria-label="التنقل الرئيسي">
             <button type="button" onClick={() => scrollTo(workRef.current)} data-testid="button-nav-work" className="text-sm text-primary/75 transition-colors hover:text-primary">الأعمال</button>
@@ -449,7 +453,7 @@ function Home() {
           </div>
           <footer className="mt-28 flex flex-col gap-5 border-t border-primary/15 pt-7 text-[11px] text-primary/50 md:flex-row md:items-center md:justify-between">
             <span>© ٢٠٢٤ أثر. كل صورة لها قصة.</span>
-            <span className="tracking-[.18em]" dir="ltr">ATHAR / VISUAL PRODUCTION</span>
+            <span className="tracking-[.18em]" dir="ltr">RX-MOMENT / VISUAL PRODUCTION</span>
           </footer>
         </div>
       </section>
