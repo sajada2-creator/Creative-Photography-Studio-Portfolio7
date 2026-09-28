@@ -114,7 +114,7 @@ const CATEGORIES: Category[] = [
 ];
 
 const CONTACT_LINKS = {
-  whatsapp: '[WHATSAPP LINK]',
+  whatsapp: 'https://wa.me/966507317045',
   instagram: '[INSTAGRAM LINK]',
   tiktok: '[TIKTOK LINK]',
 };
@@ -439,7 +439,7 @@ function Home() {
             <div className="flex flex-col justify-end border-t border-primary/20 pt-8 md:border-t-0 md:border-r md:pr-10">
               <span className="eyebrow mb-6 text-primary/50">تواصل معنا</span>
               <a href={CONTACT_LINKS.whatsapp} data-testid="link-contact-whatsapp" className="group flex items-center justify-between border-b border-primary/20 py-5 text-lg transition-colors hover:border-primary">
-                واتساب <span className="flex items-center gap-3 text-xs text-primary/55 transition-transform group-hover:-translate-x-1">[WHATSAPP LINK] <ArrowLeft size={16} /></span>
+                واتساب <span className="flex items-center gap-3 text-xs text-primary/55 transition-transform group-hover:-translate-x-1" dir="ltr">0507317045 <ArrowLeft size={16} /></span>
               </a>
               <a href={CONTACT_LINKS.instagram} data-testid="link-contact-instagram" className="group flex items-center justify-between border-b border-primary/20 py-5 text-lg transition-colors hover:border-primary">
                 إنستغرام <span className="flex items-center gap-3 text-xs text-primary/55 transition-transform group-hover:-translate-x-1">[INSTAGRAM LINK] <FaInstagram size={15} /></span>
