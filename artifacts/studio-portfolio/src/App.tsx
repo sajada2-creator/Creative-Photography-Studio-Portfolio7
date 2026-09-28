@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
-  ExternalLink,
   Instagram,
   Menu,
   MoveUpLeft,
@@ -436,7 +435,9 @@ function Home() {
               <span className="eyebrow text-primary/50">الباب مفتوح</span>
               <h2 className="display-font mt-6 max-w-2xl text-5xl leading-[1.45] md:text-7xl">لديك حكاية<br /><span className="text-primary/50">لنصورها؟</span></h2>
               <p className="mt-8 max-w-md text-sm leading-9 text-primary/65">أخبرنا عن الفكرة، الموعد، أو حتى الشعور الذي تريد الاحتفاظ به. سنعود إليك من هنا.</p>
-              <a href="mailto:[EMAIL LINK]" data-testid="link-contact-email" className="mt-8 inline-flex items-center gap-3 border-b border-primary/40 pb-3 text-sm text-primary transition-colors hover:border-primary">[EMAIL LINK] <ExternalLink size={14} strokeWidth={1.4} /></a>
+              <a href={CONTACT_LINKS.whatsapp} data-testid="link-contact-whatsapp-primary" aria-label="التواصل عبر واتساب" className="mt-8 inline-flex items-center gap-3 border-b border-primary/40 pb-3 text-sm text-primary transition-colors hover:border-primary">
+                تواصل معنا عبر واتساب <ArrowLeft size={14} strokeWidth={1.4} />
+              </a>
             </div>
             <div className="flex flex-col justify-end border-t border-primary/20 pt-8 md:border-t-0 md:border-r md:pr-10">
               <span className="eyebrow mb-6 text-primary/50">تواصل معنا</span>
