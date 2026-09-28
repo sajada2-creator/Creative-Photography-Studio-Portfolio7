@@ -361,7 +361,7 @@ function Home() {
         </button>
         <div className={`absolute right-14 top-1/2 w-[min(21rem,calc(100vw-5.5rem))] -translate-y-1/2 origin-right border border-primary/25 bg-background/90 p-6 text-right shadow-[0_20px_60px_hsl(202_81%_20%/.18)] backdrop-blur-xl transition-all duration-300 md:right-16 md:p-8 ${aboutOpen ? 'pointer-events-auto scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'}`} aria-hidden={!aboutOpen}>
           <div className="mb-6 flex items-center justify-between gap-4 border-b border-primary/15 pb-4">
-            <span className="eyebrow text-primary/45">منذ ٢٠٢٤ / القاهرة</span>
+            <span className="eyebrow text-primary/45">الأحساء</span>
             <button type="button" onClick={() => setAboutOpen(false)} data-testid="button-close-floating-about" aria-label="إغلاق النبذة" className="flex h-8 w-8 items-center justify-center border border-primary/20 text-primary transition-colors hover:bg-primary hover:text-accent">
               <X size={15} strokeWidth={1.3} />
             </button>
@@ -453,7 +453,7 @@ function Home() {
             </div>
           </div>
           <footer className="mt-28 flex flex-col gap-5 border-t border-primary/15 pt-7 text-[11px] text-primary/50 md:flex-row md:items-center md:justify-between">
-            <span>© ٢٠٢٤ أثر. كل صورة لها قصة.</span>
+            <span>أثر. كل صورة لها قصة.</span>
             <span className="tracking-[.18em]" dir="ltr">RX-MOMENT / VISUAL PRODUCTION</span>
           </footer>
         </div>
