@@ -56,7 +56,7 @@ const CATEGORIES: Category[] = [
     slug: 'weddings',
     name: 'الأعراس',
     latin: 'Weddings',
-    description: 'تفاصيل اليوم كما عُشناه — بطيئاً، صادقاً، وقريباً.',
+    description: 'تفاصيل اليوم كما عُشناه — بطيئاً، صادقاً، وبقلب مفتوح.',
     works: detectedWorks('weddings', [
       { id: 'wedding-01', title: 'بين خطوتين', note: 'لحظة • ضوء طبيعي', ratio: 'portrait', src: '/images/weddings/between-steps.jpg', tone: 'wedding-a' },
       { id: 'wedding-02', title: 'قبل أن يبدأ الضوء', note: 'تحضير • ظلال هادئة', ratio: 'landscape', src: '/images/weddings/before-light.jpg', tone: 'wedding-b' },
@@ -171,9 +171,6 @@ function CategoryVisual({ category, onClick }: { category: Category; onClick: ()
         <div className="visual-ring left-[18%] top-[18%] h-[48%] w-[48%]" />
         <div className="visual-ring bottom-[-18%] right-[-6%] h-[72%] w-[72%]" />
         <div className="visual-bar bottom-[20%] left-[-10%] h-[10%] w-[78%]" />
-        {category.works.length === 0 && (
-          <span className="absolute bottom-5 right-5 z-10 border border-accent/40 px-2 py-1 text-[10px] tracking-wider text-accent/80">قريباً</span>
-        )}
         <span className="absolute bottom-5 left-5 z-10 text-accent/80 transition-transform duration-500 group-hover:-translate-x-1"><ArrowLeft size={17} strokeWidth={1.2} /></span>
       </div>
       <span className="display-font text-xl">{category.name}</span>
