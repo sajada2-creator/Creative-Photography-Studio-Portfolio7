@@ -1,0 +1,16 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "OlrmAL49JXaZ-GjwB4CUc"
+uri = "file://attached_assets/generated_images/rx-moment-brand-lockup.png"
+type = "image"
+title = "RX-MOMENT brand lockup"
+description = "الشعار الأصلي مع اسم RX-MOMENT فقط، بخلفية شفافة وبدون عناصر إضافية."
+logical_id = "4d485e41-07cd-4eba-ab96-47d34ed5cd39"
+content_hash = "sha256:40698ac1eb6ce269380e19f84c9367e0cb2da32e602cfe9571880f38ce6d07b6"
+size = 369072
+mtime_ms = 1790631831522
+storage_uri = "gcs://replit-rams-assets-pike/rams/assets/repl:f2249248-e867-4ecb-a577-a525ac0b5e14/4d485e41-07cd-4eba-ab96-47d34ed5cd39/ca6c7350-ebe4-4fde-be74-83db23106643"
+storage_version_token = "1790631846741750"
+content_type = "image/png"
