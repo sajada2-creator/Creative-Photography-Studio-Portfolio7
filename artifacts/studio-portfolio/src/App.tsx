@@ -2,12 +2,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
-  Instagram,
   Menu,
   MoveUpLeft,
   Send,
   X,
 } from 'lucide-react';
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa6';
 import { type ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
@@ -445,7 +445,7 @@ function Home() {
                 واتساب <span className="flex items-center gap-3 text-xs text-primary/55 transition-transform group-hover:-translate-x-1">[WHATSAPP LINK] <ArrowLeft size={16} /></span>
               </a>
               <a href={CONTACT_LINKS.instagram} data-testid="link-contact-instagram" className="group flex items-center justify-between border-b border-primary/20 py-5 text-lg transition-colors hover:border-primary">
-                إنستغرام <span className="flex items-center gap-3 text-xs text-primary/55 transition-transform group-hover:-translate-x-1">[INSTAGRAM LINK] <Instagram size={15} strokeWidth={1.3} /></span>
+                إنستغرام <span className="flex items-center gap-3 text-xs text-primary/55 transition-transform group-hover:-translate-x-1">[INSTAGRAM LINK] <FaInstagram size={15} /></span>
               </a>
               <a href={CONTACT_LINKS.tiktok} data-testid="link-contact-tiktok" className="group flex items-center justify-between border-b border-primary/20 py-5 text-lg transition-colors hover:border-primary">
                 تيك توك <span className="flex items-center gap-3 text-xs text-primary/55 transition-transform group-hover:-translate-x-1">[TIKTOK LINK] <Send size={14} strokeWidth={1.3} /></span>
@@ -460,7 +460,7 @@ function Home() {
       </section>
 
       <a href={CONTACT_LINKS.whatsapp} data-testid="link-floating-whatsapp" aria-label="التواصل عبر واتساب" className="fixed bottom-5 right-5 z-30 flex items-center gap-3 border border-primary/30 bg-background/90 px-4 py-3 text-xs text-primary shadow-[0_12px_30px_hsl(202_81%_20%/.12)] backdrop-blur-md transition-transform hover:-translate-y-1 md:bottom-8 md:right-8">
-        <span className="h-2 w-2 rounded-full bg-primary" /> ابدأ محادثة
+        <FaWhatsapp size={17} aria-hidden="true" /> ابدأ محادثة
       </a>
 
       {mobileOpen && (
