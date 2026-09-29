@@ -166,9 +166,9 @@ function CategoryVisual({ category, onClick }: { category: Category; onClick: ()
       type="button"
       onClick={onClick}
       data-testid={`button-category-${category.slug}`}
-      className="category-card group flex min-w-[220px] snap-start flex-col text-right text-primary/65 md:min-w-0"
+      className="category-card group flex min-w-[220px] snap-start flex-col text-right text-primary-foreground/80 md:min-w-0"
     >
-      <div className={`category-visual visual-surface relative mb-5 aspect-[4/3] w-full border border-primary/15 ${firstTone}`}>
+      <div className={`category-visual visual-surface relative mb-5 aspect-[4/3] w-full border border-secondary/30 ${firstTone}`}>
         <span className="absolute right-5 top-5 z-10 font-mono text-[10px] tracking-[.2em] text-accent/80">0{CATEGORIES.indexOf(category) + 1}</span>
         <div className="visual-ring left-[18%] top-[18%] h-[48%] w-[48%]" />
         <div className="visual-ring bottom-[-18%] right-[-6%] h-[72%] w-[72%]" />
@@ -177,7 +177,7 @@ function CategoryVisual({ category, onClick }: { category: Category; onClick: ()
       </div>
       <span className="display-font text-xl">{category.name}</span>
       <span className="mt-1 text-[11px] tracking-[.12em] opacity-70" dir="ltr">{category.latin}</span>
-      <span className="mt-3 h-px w-5 bg-primary transition-all duration-500 group-hover:w-12" />
+      <span className="mt-3 h-px w-5 bg-secondary transition-all duration-500 group-hover:w-12" />
     </button>
   );
 }
@@ -355,10 +355,10 @@ function Home() {
       </header>
 
       <div ref={aboutPanelRef} className="fixed right-0 top-1/2 z-50 -translate-y-1/2">
-        <button type="button" onClick={() => setAboutOpen((open) => !open)} data-testid="button-floating-about" aria-expanded={aboutOpen} className="about-tab group flex h-40 w-11 items-center justify-center border border-primary/30 bg-background/90 text-primary shadow-[0_16px_40px_hsl(202_81%_20%/.12)] backdrop-blur-md transition-all duration-300 hover:w-14 md:h-48 md:w-12">
+        <button type="button" onClick={() => setAboutOpen((open) => !open)} data-testid="button-floating-about" aria-expanded={aboutOpen} className="about-tab group flex h-40 w-11 items-center justify-center border border-primary/30 bg-background/90 text-primary shadow-[0_16px_40px_hsl(var(--primary)/.12)] backdrop-blur-md transition-all duration-300 hover:w-14 md:h-48 md:w-12">
           <span className="about-tab-label text-xs tracking-[.15em]">نبذة عن المجموعة</span>
         </button>
-        <div className={`absolute right-14 top-1/2 w-[min(21rem,calc(100vw-5.5rem))] -translate-y-1/2 origin-right border border-primary/25 bg-background/90 p-6 text-right shadow-[0_20px_60px_hsl(202_81%_20%/.18)] backdrop-blur-xl transition-all duration-300 md:right-16 md:p-8 ${aboutOpen ? 'pointer-events-auto scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'}`} aria-hidden={!aboutOpen}>
+        <div className={`absolute right-14 top-1/2 w-[min(21rem,calc(100vw-5.5rem))] -translate-y-1/2 origin-right border border-primary/25 bg-background/90 p-6 text-right shadow-[0_20px_60px_hsl(var(--primary)/.18)] backdrop-blur-xl transition-all duration-300 md:right-16 md:p-8 ${aboutOpen ? 'pointer-events-auto scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'}`} aria-hidden={!aboutOpen}>
           <div className="mb-6 flex items-center justify-between gap-4 border-b border-primary/15 pb-4">
             <span className="eyebrow text-primary/45">الأحساء</span>
             <button type="button" onClick={() => setAboutOpen(false)} data-testid="button-close-floating-about" aria-label="إغلاق النبذة" className="flex h-8 w-8 items-center justify-center border border-primary/20 text-primary transition-colors hover:bg-primary hover:text-accent">
@@ -370,26 +370,26 @@ function Home() {
         </div>
       </div>
 
-      <section className="hero-grid relative flex min-h-[760px] items-end overflow-hidden px-5 pb-16 pt-36 md:min-h-[900px] md:px-10 md:pb-24">
-        <div className="hero-orb pointer-events-none absolute -left-32 top-32 h-[420px] w-[420px] rounded-full border border-primary/10 md:h-[640px] md:w-[640px]" />
-        <div className="pointer-events-none absolute right-[12%] top-[28%] h-2 w-2 rounded-full bg-primary/50" />
-        <div className="pointer-events-none absolute right-[26%] top-[38%] h-px w-24 bg-primary/20" />
+      <section className="hero-grid relative flex min-h-[760px] items-end overflow-hidden bg-primary px-5 pb-16 pt-36 text-primary-foreground md:min-h-[900px] md:px-10 md:pb-24">
+      <div className="hero-orb pointer-events-none absolute -left-32 top-32 h-[420px] w-[420px] rounded-full border border-secondary/25 md:h-[640px] md:w-[640px]" />
+        <div className="pointer-events-none absolute right-[12%] top-[28%] h-2 w-2 rounded-full bg-secondary/75" />
+        <div className="pointer-events-none absolute right-[26%] top-[38%] h-px w-24 bg-secondary/45" />
         <div className="relative mx-auto w-full max-w-[1400px]">
           <div className="rise-in mb-8 flex items-center gap-4">
-            <span className="eyebrow text-primary/55">استوديو تصوير وإنتاج بصري</span>
-            <span className="h-px w-14 bg-primary/35" />
+            <span className="eyebrow text-primary-foreground/75">استوديو تصوير وإنتاج بصري</span>
+            <span className="h-px w-14 bg-secondary/70" />
           </div>
           <h1 className="display-font rise-in max-w-5xl text-[clamp(3.5rem,10vw,9.5rem)] font-medium leading-[1.12] tracking-[-.06em] [animation-delay:.1s]">
-            نرى ما<br /><span className="mr-[.7em] text-primary/55">لا يُقال.</span>
+            نرى ما<br /><span className="mr-[.7em] text-secondary/85">لا يُقال.</span>
           </h1>
           <div className="mt-12 flex flex-col justify-between gap-8 md:flex-row md:items-end">
-            <p className="rise-in max-w-sm text-base leading-9 text-primary/70 [animation-delay:.25s]">نلتقط الأثر الذي تتركه اللحظة بعد مرورها.<br />صور هادئة، لها ما تقوله.</p>
-            <button type="button" onClick={() => scrollTo(workRef.current)} data-testid="button-hero-explore" className="line-in group flex items-center gap-5 self-start border-b border-primary/35 pb-3 text-sm text-primary transition-colors hover:border-primary md:self-auto">
-              اكتشف الأعمال <span className="flex h-8 w-8 items-center justify-center rounded-full border border-primary/35 transition-transform duration-300 group-hover:-translate-x-1"><ArrowLeft size={15} strokeWidth={1.2} /></span>
+            <p className="rise-in max-w-sm text-base leading-9 text-primary-foreground/75 [animation-delay:.25s]">نلتقط الأثر الذي تتركه اللحظة بعد مرورها.<br />صور هادئة، لها ما تقوله.</p>
+            <button type="button" onClick={() => scrollTo(workRef.current)} data-testid="button-hero-explore" className="line-in group flex items-center gap-5 self-start border-b border-secondary/65 pb-3 text-sm text-primary-foreground transition-colors hover:border-secondary md:self-auto">
+              اكتشف الأعمال <span className="flex h-8 w-8 items-center justify-center rounded-full border border-secondary/65 transition-transform duration-300 group-hover:-translate-x-1"><ArrowLeft size={15} strokeWidth={1.2} /></span>
             </button>
           </div>
         </div>
-        <span className="absolute bottom-7 left-5 text-[10px] tracking-[.28em] text-primary/40 md:left-10" dir="ltr">SCROLL TO BEGIN</span>
+        <span className="absolute bottom-7 left-5 text-[10px] tracking-[.28em] text-primary-foreground/60 md:left-10" dir="ltr">SCROLL TO BEGIN</span>
       </section>
 
       <section className="border-y border-primary/10 px-5 py-7 md:px-10">
@@ -399,13 +399,13 @@ function Home() {
         </div>
       </section>
 
-      <section ref={workRef} id="work" className="mx-auto max-w-[1400px] scroll-mt-24 px-5 py-24 md:px-10 md:py-36">
+      <section ref={workRef} id="work" className="mx-auto max-w-[1400px] scroll-mt-24 bg-primary px-5 py-24 text-primary-foreground md:px-10 md:py-36">
         <div className="mb-14 flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
-            <span className="eyebrow text-primary/50">المجموعة / ٠١</span>
+            <span className="eyebrow text-primary-foreground/65">المجموعة / ٠١</span>
             <h2 className="display-font mt-5 text-4xl md:text-6xl">الأعمال</h2>
           </div>
-          <p className="max-w-xs text-sm leading-8 text-primary/65">كل مشروع يبدأ باستماع طويل، ثم لقطة واحدة تشبهه تماماً.</p>
+          <p className="max-w-xs text-sm leading-8 text-primary-foreground/75">كل مشروع يبدأ باستماع طويل، ثم لقطة واحدة تشبهه تماماً.</p>
         </div>
 
         <div className="-mx-5 mb-20 flex snap-x gap-5 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-7 md:gap-5 md:overflow-visible md:px-0">
@@ -458,7 +458,7 @@ function Home() {
         </div>
       </section>
 
-      <a href={CONTACT_LINKS.whatsapp} data-testid="link-floating-whatsapp" aria-label="التواصل عبر واتساب" className="fixed bottom-5 right-5 z-30 flex items-center gap-3 border border-primary/30 bg-background/90 px-4 py-3 text-xs text-primary shadow-[0_12px_30px_hsl(202_81%_20%/.12)] backdrop-blur-md transition-transform hover:-translate-y-1 md:bottom-8 md:right-8">
+      <a href={CONTACT_LINKS.whatsapp} data-testid="link-floating-whatsapp" aria-label="التواصل عبر واتساب" className="fixed bottom-5 right-5 z-30 flex items-center gap-3 border border-primary/30 bg-background/90 px-4 py-3 text-xs text-primary shadow-[0_12px_30px_hsl(var(--primary)/.12)] backdrop-blur-md transition-transform hover:-translate-y-1 md:bottom-8 md:right-8">
         <FaWhatsapp size={17} aria-hidden="true" /> ابدأ محادثة
       </a>
 
