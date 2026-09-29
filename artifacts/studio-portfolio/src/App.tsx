@@ -175,8 +175,8 @@ function CategoryVisual({ category, onClick }: { category: Category; onClick: ()
         <div className="visual-bar bottom-[20%] left-[-10%] h-[10%] w-[78%]" />
         <span className="absolute bottom-5 left-5 z-10 text-accent/80 transition-transform duration-500 group-hover:-translate-x-1"><ArrowLeft size={17} strokeWidth={1.2} /></span>
       </div>
-      <span className="display-font text-xl">{category.name}</span>
-      <span className="mt-1 text-[11px] tracking-[.12em] opacity-70" dir="ltr">{category.latin}</span>
+      <span className="display-font text-xl font-medium text-secondary">{category.name}</span>
+      <span className="mt-1 text-[11px] tracking-[.12em] text-primary-foreground/60" dir="ltr">{category.latin}</span>
       <span className="mt-3 h-px w-5 bg-secondary transition-all duration-500 group-hover:w-12" />
     </button>
   );

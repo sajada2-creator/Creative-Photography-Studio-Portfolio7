@@ -1,0 +1,30 @@
+Before making any changes, inspect the whole project and improve the project’s image, asset, and visual hierarchy handling for GitHub Pages.
+I want the project to be easy to maintain in the future, especially when I add, remove, or replace photos and the logo.
+Image & asset handling
+	1.	Make all image, logo, icon, and asset paths compatible with the GitHub Pages base path /Creative-Photography-Studio-Portfolio7/.
+	2.	Remove any hardcoded root paths such as /images/... or /rx-moment-logo.png where they can break on GitHub Pages.
+	3.	Use a consistent and reliable asset-path system based on Vite’s import.meta.env.BASE_URL.
+	4.	Check all existing image references, including gallery images, category images, logos, backgrounds, and dynamically loaded images.
+	5.	Make sure adding a new image later is straightforward and does not require changing multiple unrelated files.
+	6.	Make sure missing images do not break the page or cause layout problems.
+	7.	Keep the existing image quality and do not replace or compress existing images unnecessarily.
+Visual hierarchy & text readability
+Also fix the visual hierarchy and text contrast shown in the current design.
+In sections where there is a heading followed by a paragraph/description, make sure the heading and paragraph are visually distinct. They should not look like the same text style or color.
+In the photography categories section (Products, Sports, Portraits, etc.), make the category titles clearly distinct from the options/content underneath them. The user should immediately understand which text is the category title and which text belongs to that category.
+Use differences in color, font weight, size, spacing, and/or subtle separators where appropriate. Keep it elegant and minimal — do not add excessive boxes or decorations.
+Use only this existing color palette:
+	●	Primary: #074064
+	●	Secondary: #e6d5b8
+	●	Light/Text: #fffcf6
+Make the #074064 blue the dominant visual identity, use #e6d5b8 for elegant accents and contrast, and use #fffcf6 where appropriate for readable text and light elements.
+Do not simply replace colors one-for-one. Make sure the distribution and contrast of the three colors feel intentional and balanced.
+Important restrictions
+	●	Do not change the existing website structure or layout.
+	●	Do not redesign the website.
+	●	Do not change the typography or animations unless necessary to improve the text hierarchy described above.
+	●	Do not remove or replace existing images.
+	●	Do not add unnecessary dependencies or complicated systems.
+	●	Do not introduce random new colors unless absolutely necessary for accessibility/readability.
+	●	Keep the current functionality intact.
+Finally, run a production build and fix any errors so the project is ready to deploy correctly on GitHub Pages.
