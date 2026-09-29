@@ -17,6 +17,8 @@ import NotFound from '@/pages/not-found';
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 import { IMAGE_MANIFEST } from './generated/imageManifest';
 
+const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
+
 type WorkItem = {
   id: string;
   title: string;
@@ -45,7 +47,7 @@ function detectedWorks(slug: string, fallback: WorkItem[]): WorkItem[] {
       title: `عمل ${String(index + 1).padStart(2, '0')}`,
       note: 'من أرشيف المجموعة',
       ratio: index % 3 === 0 ? 'portrait' : index % 3 === 1 ? 'landscape' : 'square',
-      src,
+      src: assetPath(src),
       tone: fallbackItem?.tone ?? `empty-${slug}`,
     };
   });
@@ -58,9 +60,9 @@ const CATEGORIES: Category[] = [
     latin: 'Weddings',
     description: 'تفاصيل اليوم كما عُشناه — بطيئاً، صادقاً، وبقلب مفتوح.',
     works: detectedWorks('weddings', [
-      { id: 'wedding-01', title: 'بين خطوتين', note: 'لحظة • ضوء طبيعي', ratio: 'portrait', src: '/images/weddings/between-steps.jpg', tone: 'wedding-a' },
-      { id: 'wedding-02', title: 'قبل أن يبدأ الضوء', note: 'تحضير • ظلال هادئة', ratio: 'landscape', src: '/images/weddings/before-light.jpg', tone: 'wedding-b' },
-      { id: 'wedding-03', title: 'وعد صغير', note: 'احتفال • لقطة صريحة', ratio: 'square', src: '/images/weddings/small-promise.jpg', tone: 'wedding-c' },
+      { id: 'wedding-01', title: 'بين خطوتين', note: 'لحظة • ضوء طبيعي', ratio: 'portrait', src: assetPath('images/weddings/between-steps.jpg'), tone: 'wedding-a' },
+      { id: 'wedding-02', title: 'قبل أن يبدأ الضوء', note: 'تحضير • ظلال هادئة', ratio: 'landscape', src: assetPath('images/weddings/before-light.jpg'), tone: 'wedding-b' },
+      { id: 'wedding-03', title: 'وعد صغير', note: 'احتفال • لقطة صريحة', ratio: 'square', src: assetPath('images/weddings/small-promise.jpg'), tone: 'wedding-c' },
     ]),
   },
   {
@@ -76,8 +78,8 @@ const CATEGORIES: Category[] = [
     latin: 'Products',
     description: 'الصورة التي تجعل الفكرة ملموسة، حتى قبل لمسها.',
     works: detectedWorks('products', [
-      { id: 'product-01', title: 'مادة أولى', note: 'طبيعة صامتة • تركيب', ratio: 'landscape', src: '/images/products/first-material.jpg', tone: 'product-a' },
-      { id: 'product-02', title: 'في التفاصيل', note: 'هوية • ضوء استوديو', ratio: 'portrait', src: '/images/products/in-the-detail.jpg', tone: 'product-b' },
+      { id: 'product-01', title: 'مادة أولى', note: 'طبيعة صامتة • تركيب', ratio: 'landscape', src: assetPath('images/products/first-material.jpg'), tone: 'product-a' },
+      { id: 'product-02', title: 'في التفاصيل', note: 'هوية • ضوء استوديو', ratio: 'portrait', src: assetPath('images/products/in-the-detail.jpg'), tone: 'product-b' },
     ]),
   },
   {
@@ -93,8 +95,8 @@ const CATEGORIES: Category[] = [
     latin: 'Portraits',
     description: 'لا نبحث عن ملامح مثالية، بل عن حضور حقيقي.',
     works: detectedWorks('portraits', [
-      { id: 'portrait-01', title: 'كما أنت', note: 'بورتريه • ضوء جانبي', ratio: 'portrait', src: '/images/portraits/as-you-are.jpg', tone: 'portrait-a' },
-      { id: 'portrait-02', title: 'مسافة قريبة', note: 'شخصي • أبيض وظلال', ratio: 'square', src: '/images/portraits/close-distance.jpg', tone: 'portrait-b' },
+      { id: 'portrait-01', title: 'كما أنت', note: 'بورتريه • ضوء جانبي', ratio: 'portrait', src: assetPath('images/portraits/as-you-are.jpg'), tone: 'portrait-a' },
+      { id: 'portrait-02', title: 'مسافة قريبة', note: 'شخصي • أبيض وظلال', ratio: 'square', src: assetPath('images/portraits/close-distance.jpg'), tone: 'portrait-b' },
     ]),
   },
   {
@@ -327,7 +329,7 @@ function Home() {
       <div className="intro-curtain fixed inset-0 z-[120] flex items-center justify-center bg-primary text-accent" aria-label="مقدمة شعار RX-MOMENT">
         <div className="text-center">
           <img
-            src="/rx-moment-logo.png"
+            src={assetPath('rx-moment-logo.png')}
             alt="RX-MOMENT"
             className="mx-auto w-[min(19rem,76vw)] object-contain brightness-125 md:w-[25rem]"
           />
@@ -339,7 +341,7 @@ function Home() {
       <header className="glass-nav fixed inset-x-0 top-0 z-40 border-b border-primary/10">
         <div className="mx-auto flex h-[76px] max-w-[1400px] items-center justify-between px-5 md:h-[88px] md:px-10">
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} data-testid="button-brand-home" className="group flex items-center gap-3 text-right">
-            <img src="/rx-moment-logo.png" alt="RX-MOMENT" className="h-9 w-16 object-contain" />
+            <img src={assetPath('rx-moment-logo.png')} alt="RX-MOMENT" className="h-9 w-16 object-contain" />
             <span className="hidden text-xs tracking-[.18em] text-primary/70 sm:inline" dir="ltr">RX-MOMENT / VISUALS</span>
           </button>
           <nav className="hidden items-center gap-8 md:flex" aria-label="التنقل الرئيسي">

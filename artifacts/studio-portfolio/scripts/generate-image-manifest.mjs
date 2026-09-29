@@ -14,7 +14,7 @@ const manifest = Object.fromEntries(
     const files = existsSync(folder)
       ? readdirSync(folder, { withFileTypes: true })
           .filter((entry) => entry.isFile() && supported.test(entry.name) && entry.name.toLowerCase() !== 'cover.jpg')
-          .map((entry) => `/images/${slug}/${entry.name}`)
+          .map((entry) => `images/${slug}/${entry.name}`)
           .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
       : [];
     return [slug, files];
